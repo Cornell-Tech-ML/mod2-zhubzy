@@ -97,9 +97,10 @@ class Add(Function):
 
 class All(Function):
     @staticmethod
-    def forward(ctx: Context, a: Tensor, dim: int) -> Tensor:
+    def forward(ctx: Context, a: Tensor, dim:Tensor) -> Tensor:
         """Return 1 if all are true"""
-        return a.f.mul_reduce(a, dim)
+        # Flatten the tensor
+        return a.f.mul_reduce(a, int(dim.item()))
 
 
 class Mul(Function):

@@ -325,8 +325,11 @@ class Tensor:
     def __neg__(self) -> Tensor:
         return Neg.apply(self)
 
-    def all(self) -> Tensor:
-        return All.apply(self)
+    def all(self, dim: Optional[int] = None) -> Tensor:
+        if dim is None:
+            return All.apply(self.contiguous().view(self.size), self._ensure_tensor(0))
+        else:
+            return All.apply(self, self._ensure_tensor(dim))
 
     def is_close(self, b: TensorLike) -> Tensor:
         return IsClose.apply(self, self._ensure_tensor(b))
