@@ -69,7 +69,7 @@ class TensorTrain:
         self.max_epochs = max_epochs
         self.model = Network(self.hidden_layers)
         optim = minitorch.SGD(self.model.parameters(), learning_rate)
-
+        print(self.model.parameters())
         X = minitorch.tensor(data.X)
         print("input data has size ", X.shape)
         print("N =  ", data.N)

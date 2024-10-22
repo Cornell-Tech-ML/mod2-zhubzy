@@ -33,8 +33,8 @@ The files that will be synced are:
 | ------- | ------ | -------------- | ------------- | ------------- | ------ | ---------- | -------------------- |
 | Simple  | 50     | 50             | 2             | 0.1           | 500    | 0.027s     | [Graph](placeholder) |
 | Diag    | 50     | 50             | 2             | 0.5           | 500    | 0.027s     | [Graph](placeholder) |
-| Split   | 50     | 50             | 4              | 0.2              | 1000       | 0.056           | [Graph](placeholder) |
-| Xor     | 50     | 50             |               |               |        |            | [Graph](placeholder) |
+| Split   | 50     | 50             | 4             | 0.2           | 1000   | 0.056s     | [Graph](placeholder) |
+| Xor     | 50     | 47             | 6             | 0.5           | 1000   | 0.206s     | [Graph](placeholder) |
 
 ## Loss Graphs
 
@@ -44,20 +44,12 @@ The files that will be synced are:
 
 ### Diagonal Dataset
 
-![Diagonal Dataset Loss Graph](placeholder_for_diag_loss.png)
+![Diagonal Dataset Loss Graph](./spiral.png)
 
 ### Split Dataset
 
-![Split Dataset Loss Graph](placeholder_for_split_loss.png)
+![Split Dataset Loss Graph](./split.png)
 
 ### XOR Dataset
 
-![XOR Dataset Loss Graph](placeholder_for_xor_loss.png)
-
-### Circle Dataset
-
-![Circle Dataset Loss Graph](placeholder_for_circle_loss.png)
-
-### Spiral Dataset
-
-![Spiral Dataset Loss Graph](placeholder_for_spiral_loss.png)
+![XOR Dataset Loss Graph](./Xor.png)
