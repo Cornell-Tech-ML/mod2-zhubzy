@@ -158,22 +158,22 @@ def reduce(func: Callable[[R, T], R], iterable: Iterable[T], inital: R) -> R:
 
 
 # Small practice library of elementary higher-order functions.
-def negList(l: list) -> list:
+def negList(l: Iterable) -> Iterable:
     """Negate all elements in a list using map"""
     return map(lambda x: -x, l)
 
 
-def addLists(l1: list, l2: list) -> list:
+def addLists(l1: Iterable, l2: Iterable) -> Iterable:
     """Add corresponding elements from two lists using zipWith"""
     return list(zipWith(lambda x, y: x + y, l1, l2))
 
 
-def sum(l: list) -> float:
+def sum(l: Iterable) -> float:
     """Sum all elements in a list using reduce"""
     return reduce(lambda x, y: x + y, l, 0)
 
 
-def prod(l: list) -> float:
+def prod(l: Iterable) -> float:
     """Calculate the product of all elements in a list using reduce"""
     return reduce(lambda x, y: x * y, l, 1)
 

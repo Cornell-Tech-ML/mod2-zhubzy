@@ -108,9 +108,11 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     stack = []
 
     def dfs(node: Variable) -> None:
-        visited.add(node.unique_id)
+        if node.is_constant():
+            return
         for parent in node.parents:
             if parent.unique_id not in visited:
+                visited.add(parent.unique_id)
                 dfs(parent)
         if not node.is_leaf():
             stack.append(node)
@@ -130,9 +132,10 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     assert sorted_computation_graph[0] == variable, "Topological sort failed"
     id_to_var[sorted_computation_graph[0].unique_id] = (variable, deriv)
 
-    for index, v in enumerate(sorted_computation_graph):
+    for _, v in enumerate(sorted_computation_graph):
         current_deriv = id_to_var[v.unique_id][1]
         for p, parent_out in v.chain_rule(current_deriv):
+            id_to_var.setdefault(p.unique_id, (v, 0))
             if p.is_leaf():
                 p.accumulate_derivative(parent_out)
             else:

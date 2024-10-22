@@ -205,8 +205,8 @@ class SimpleOps(TensorOps):
 
         def ret(a: "Tensor", dim: int) -> "Tensor":
             out_shape = list(a.shape)
-            out_shape[dim] = 1
 
+            out_shape[dim] = 1
             # Other values when not sum.
             out = a.zeros(tuple(out_shape))
             out._tensor._storage[:] = start
@@ -261,8 +261,13 @@ def tensor_map(
         in_shape: Shape,
         in_strides: Strides,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        out_index = np.zeros(len(out_shape), dtype=int)
+        in_index = np.zeros(len(in_shape), dtype=int)
+
+        for i in range(len(out)):
+            to_index(i, out_shape, out_index)
+            broadcast_index(out_index, out_shape, in_shape, in_index)
+            out[i] = fn(in_storage[index_to_position(in_index, in_strides)])
 
     return _map
 
@@ -306,8 +311,23 @@ def tensor_zip(
         b_shape: Shape,
         b_strides: Strides,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        out_index = np.array(out_shape)
+        a_index = np.array(a_shape)
+        b_index = np.array(b_shape)
+        for i in range(len(out)):
+            to_index(i, out_shape, out_index)
+            broadcast_index(out_index, out_shape, a_shape, a_index)
+            broadcast_index(out_index, out_shape, b_shape, b_index)
+
+            a_position = index_to_position(a_index, a_strides)
+            b_position = index_to_position(b_index, b_strides)
+            out_position = index_to_position(out_index, out_strides)
+
+            out[out_position] = fn(
+                a_storage[a_position],
+                b_storage[b_position])
+            
+
 
     return _zip
 
@@ -338,7 +358,14 @@ def tensor_reduce(
         reduce_dim: int,
     ) -> None:
         # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        out_index = np.zeros(len(out_shape), dtype=int)
+
+        for i in range(len(a_storage)):
+            to_index(i, a_shape, out_index)
+            a_pos = index_to_position(out_index, a_strides)
+            out_index[reduce_dim] = 0
+            out_pos = index_to_position(out_index, out_strides)
+            out[out_pos] = fn(out[out_pos], a_storage[a_pos])
 
     return _reduce
 
